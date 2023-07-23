@@ -1,7 +1,7 @@
 1. Human vs. Human
 2. Human vs. AI
 3. AI vs AI
-Input Command: Start Human vs. AI
+Input Command: Start AI vs. AI
   A   B   C 
 +---+---+---+
 | - | - | - | 1
@@ -10,7 +10,6 @@ Input Command: Start Human vs. AI
 +---+---+---+
 | - | - | - | 3
 +---+---+---+
-Who first? (1. AI, 2. Human)
   A   B   C 
 +---+---+---+
 | O | - | - | 1
@@ -74,14 +73,6 @@ Who first? (1. AI, 2. Human)
 | X | X | O | 2
 +---+---+---+
 | O | X | - | 3
-+---+---+---+
-  A   B   C 
-+---+---+---+
-| O | O | X | 1
-+---+---+---+
-| X | X | O | 2
-+---+---+---+
-| O | X | O | 3
 +---+---+---+
   A   B   C 
 +---+---+---+
