@@ -31,12 +31,13 @@ int Game::score(){ // win(10), lose(-10), draw(0), other(-1)
         if (board[winningCombination[0]] != '-' && 
             board[winningCombination[0]] == board[winningCombination[1]] &&
             board[winningCombination[1]] == board[winningCombination[2]])  {    
-                if (board[winningCombination[0]] == 'O') {
-                    return 10;
-                }
-                else {
-                    return -10;
-                }
+                // if (board[winningCombination[0]] == 'O') {
+                //     return 10;
+                // }
+                // else {
+                //     return -10;
+                // }
+                return 10;
         }
     }
 

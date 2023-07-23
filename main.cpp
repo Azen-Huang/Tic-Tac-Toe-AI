@@ -12,22 +12,26 @@ int minimax(Game board, bool isMaximizer, char MaximizerPlayer = 'O') {
         return score;
     }
 
-    int bestScore = isMaximizer ? -1000 : 1000;
+    // int bestScore = isMaximizer ? -1000 : 1000;
+    int bestScore = -1000;
     vector<int> validAction = board.getValidAction();
     for (const int& mov : validAction) {
         board.move(mov);
-        if (isMaximizer) {
-            int score = minimax(board, !isMaximizer, MaximizerPlayer);
-            bestScore = max(bestScore, score);
-        }
-        else {
-            int score = minimax(board, !isMaximizer, MaximizerPlayer);
-            bestScore = min(bestScore, score);
-        }
+        // if (isMaximizer) {
+        //     int score = minimax(board, !isMaximizer, MaximizerPlayer);
+        //     bestScore = max(bestScore, score);
+        // }
+        // else {
+        //     int score = minimax(board, !isMaximizer, MaximizerPlayer);
+        //     bestScore = min(bestScore, score);
+        // }
+        int score = minimax(board, !isMaximizer, MaximizerPlayer);
+        bestScore = max(bestScore, score);
         board.undo(mov);
     }
 
-    return bestScore;
+    //return bestScore;
+    return -bestScore;
 }
 
 int getBestAction(Game board) {
