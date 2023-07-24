@@ -7,14 +7,14 @@ using namespace std;
 class Game {
 public:
     Game();
-    Game(char _trun);
+    Game(char _turn);
     void move(int action);
     void undo(int action);
     int score(); // win(10), lose(-10), draw(0), other(-1)
     vector<int> getValidAction();
     void print();
 
-    char trun;
+    char turn;
 private:
     string board;
 };

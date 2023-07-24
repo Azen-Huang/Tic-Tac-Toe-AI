@@ -6,7 +6,8 @@ using namespace std;
 #define SIZE 3
 #define DEBUG
 
-int minimax(Game board, bool isMaximizer, char MaximizerPlayer = 'O') {
+int minimax(Game board) {
+//int minimax(Game board, bool isMaximizer, char MaximizerPlayer = 'O') {
     int score = board.score();
     if (score != -1) {
         return score;
@@ -25,7 +26,7 @@ int minimax(Game board, bool isMaximizer, char MaximizerPlayer = 'O') {
         //     int score = minimax(board, !isMaximizer, MaximizerPlayer);
         //     bestScore = min(bestScore, score);
         // }
-        int score = minimax(board, !isMaximizer, MaximizerPlayer);
+        int score = minimax(board);
         bestScore = max(bestScore, score);
         board.undo(mov);
     }
@@ -40,7 +41,8 @@ int getBestAction(Game board) {
     vector<int> validAction = board.getValidAction();
     for (const int& action : validAction) {
         board.move(action);
-        int score = minimax(board, false);
+        // int score = minimax(board, false);
+        int score = minimax(board);
         board.undo(action);
 
         if (score > bestScore) {
@@ -65,7 +67,7 @@ void AI_vs_AI() {
         board.print();
         score = board.score();
     }
-    char winner = board.trun == 'O' ? 'X' : 'O';
+    char winner = board.turn == 'O' ? 'X' : 'O';
     if (score == 0) {
         cout << "Draw" << endl;
     }
@@ -86,7 +88,7 @@ void Human_vs_Human() {
         cout << "Action: " << actionString << endl;
         int score = board.score();
         if (score == -1) {
-            char winner = board.trun == 'O' ? 'X' : 'O';
+            char winner = board.turn == 'O' ? 'X' : 'O';
             if (score == 0) {
                 cout << "Draw" << endl;
             }
@@ -120,7 +122,7 @@ void Human_vs_AI() {
         
         int score = board.score();
         if (score != -1) {
-            char winner = board.trun == 'O' ? 'X' : 'O';
+            char winner = board.turn == 'O' ? 'X' : 'O';
             if (score) {
                 cout << "Winner is " << winner << "." << endl;
             }
@@ -134,7 +136,7 @@ void Human_vs_AI() {
 
 int main() {
     string command;
-    bool firstPlayerTrun = true;
+    bool firstPlayerturn = true;
     cout << "1. Human vs. Human" << endl;
     cout << "2. Human vs. AI" << endl;
     cout << "3. AI vs AI" << endl;
