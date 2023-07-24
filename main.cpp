@@ -6,49 +6,63 @@ using namespace std;
 #define SIZE 3
 #define DEBUG
 
+int alphabeta(Game board, int alpha, int beta) {
+    vector<int> validAction = board.getValidAction();
+    for (const int& mov : validAction) {
+        board.move(mov);
+        int score = board.score();
+        if (board.score() != -1) {
+            return board.score();
+        }
+        score = -alphabeta(board, -beta, -alpha);
+        if (score >= beta) {
+            return score;
+        }
+        if (score > alpha) {
+            alpha = score;
+        }
+        board.undo(mov);
+    }
+    return alpha;
+}
+
 int minimax(Game board) {
-//int minimax(Game board, bool isMaximizer, char MaximizerPlayer = 'O') {
     int score = board.score();
     if (score != -1) {
         return score;
     }
 
-    // int bestScore = isMaximizer ? -1000 : 1000;
     int bestScore = -1000;
     vector<int> validAction = board.getValidAction();
     for (const int& mov : validAction) {
         board.move(mov);
-        // if (isMaximizer) {
-        //     int score = minimax(board, !isMaximizer, MaximizerPlayer);
-        //     bestScore = max(bestScore, score);
-        // }
-        // else {
-        //     int score = minimax(board, !isMaximizer, MaximizerPlayer);
-        //     bestScore = min(bestScore, score);
-        // }
         int score = minimax(board);
         bestScore = max(bestScore, score);
         board.undo(mov);
     }
 
-    //return bestScore;
     return -bestScore;
 }
 
-int getBestAction(Game board) {
+int getBestAction(Game board, int alpha = -1000, int beta = 1000) {
     int bestScore = -1000;
     int bestAction;
     vector<int> validAction = board.getValidAction();
     for (const int& action : validAction) {
         board.move(action);
         // int score = minimax(board, false);
-        int score = minimax(board);
+        int correct_score = minimax(board);
+        int score = -alphabeta(board, -beta, -alpha);
+        cout << correct_score << " " << score << endl;
         board.undo(action);
-
-        if (score > bestScore) {
-            bestScore = score;
+        if (score > alpha) { // alphabeta
+            alpha = score;
             bestAction = action;
         }
+        // if (score > bestScore) { // minimax
+        //     bestScore = score;
+        //     bestAction = action;
+        // }
     }
     return bestAction;
 }
@@ -87,7 +101,7 @@ void Human_vs_Human() {
         board.print();
         cout << "Action: " << actionString << endl;
         int score = board.score();
-        if (score == -1) {
+        if (score != -1) {
             char winner = board.turn == 'O' ? 'X' : 'O';
             if (score == 0) {
                 cout << "Draw" << endl;
