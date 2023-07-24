@@ -50,7 +50,7 @@ int getBestAction(Game board, int alpha = -1000, int beta = 1000) {
     vector<int> validAction = board.getValidAction();
     for (const int& action : validAction) {
         board.move(action);
-        int score = minimax(board);
+        // int score = minimax(board);
         int score = -alphabeta(board, -beta, -alpha);
         board.undo(action);
         if (score > alpha) { // alphabeta
